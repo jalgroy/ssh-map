@@ -6,7 +6,11 @@ import calendar
 import time
 import copy
 
+# Edit these three variables
 API_KEY = ''
+input_file = '/path/to/ips.txt'
+output_file = '/path/to/locations.json' # Should be in the same directory as index.php
+
 TIME_LIMIT = 14*24*60*60
 current_time = calendar.timegm(time.gmtime())
 
@@ -20,12 +24,14 @@ class IPInfoDB:
         info_list = r.content.decode("utf-8").split(";")
         return info_list[4:5] + info_list[6:7] + info_list[8:10]
 
+# Check if entry already exists
 def has_entry(loc_list, timing, ip):
     for entry in loc_list:
         if entry["time"] == int(timing) and entry["ip"] == ip:
             return True
     return False
 
+# Remove entries older than TIME_LIMIT
 def purge_old(loc_list):
     list_copy = copy.deepcopy(loc_list)
     for entry in list_copy:
@@ -33,9 +39,7 @@ def purge_old(loc_list):
             loc_list.remove(entry)
     return loc_list
 
-        
-input_file = 'ips.txt'
-output_file = 'locations.json'
+
 ip_info = IPInfoDB(API_KEY)
 
 loc_list = []
@@ -49,6 +53,7 @@ except Exception:
 
 loc_list = purge_old(loc_list)
 
+# Do lookup of all new entries in intput file
 with open(input_file,'r') as f:
     for line in f.readlines():
         timing = line.split()[0]
