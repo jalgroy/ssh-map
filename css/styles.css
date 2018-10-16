@@ -1,0 +1,19 @@
+html,body {
+    height: 100%;
+    font-family: 'Questrial', Helvetica, Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    margin: 0 0;
+}
