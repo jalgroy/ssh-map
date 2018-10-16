@@ -18,4 +18,5 @@ Simple web app for mapping attempted ssh connections to a server.
 - Prevent multiple API lookups of the same IP
 - Add more extensive UI
 - Add whitelist for IP ranges or locations
+- Improve UI on mobile
 
