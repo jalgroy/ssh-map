@@ -1,4 +1,4 @@
-## SSH attack map
+## SSH attempted connections map
 
 Simple web app for mapping attempted ssh connections to a server.
 
