@@ -1,22 +1,40 @@
-var map = L.map('map');
+var map = L.map('map',{
+    minZoom: 0.5
+});
 
 var positron = 
-    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(map);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(map);
 
-var days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
-var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+var sizeDecreaseTime = 96*60*60;
 
 for(var i = 0; i < json.length; i++) {
     var circle = L.circleMarker([json[i]["lat"],json[i]["lon"]], {
         stroke: false,
         fillColor: 'red',
         fillOpacity: 0.2,
-        radius: 20-Math.log((new Date()).getTime()/1000-json[i]["time"])
+        radius: getMarkerRadius(json[i]["time"], sizeDecreaseTime)
     }).addTo(map);
-    var time = new Date(json[i]["time"]*1000);
-    var formattedTime = days[time.getDay()] + " " + time.getDate() + ". " + months[time.getMonth()] + " " + time.getFullYear();
-    circle.bindPopup(json[i]["ip"] + "<br>" + json[i]["city"] + ", " + json[i]["country"] + "<br>" + formattedTime);
+    circle.bindPopup(json[i]["ip"] + "<br>" + json[i]["city"] + ", " + json[i]["country"] + "<br>" + getTimeSince(json[i]["time"]));
 }
 
 
 map.setView([15,0],3)
+
+function getMarkerRadius(time, sizeDecreaseTime) {
+    var diff = (new Date()).getTime()/1000 - time;
+    var min = 8, max = 20;
+    return Math.max(min, (sizeDecreaseTime-diff)*max/sizeDecreaseTime);
+}
+
+function getTimeSince(time){
+    var diff = (new Date()).getTime()/1000 - time;
+    if(diff < 60*60){
+        return Math.round(diff / 60) + " minutes ago";
+    } else if (diff < 1.5*60*60){
+        return "1 hour ago";
+    } else if (diff < 48*60*60) {
+        return Math.round(diff / (60*60)) + " hours ago";
+    } else {
+        return Math.round(diff / (24*60*60)) + " days ago";
+    }
+}
