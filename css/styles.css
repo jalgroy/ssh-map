@@ -44,6 +44,7 @@ a, a:active, a:hover, a:visited {
 }
 
 #help {
+    display: none;
     width: 50%;
     position: absolute;
     top: 100px;

@@ -40,9 +40,14 @@ function getTimeSince(time){
 }
 
 function showHelp() {
+    document.getElementById("help").style.display = "block";
+    setTimeout(function(){
     document.getElementById("help").className = "visible";
-    
+    },10);
 }
 function hideHelp() {
     document.getElementById("help").className = "hidden";
+    setTimeout(function(){
+        document.getElementById("help").style.display = "none";
+    },1000);
 }
