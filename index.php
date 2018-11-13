@@ -19,7 +19,25 @@ fclose($file);
     </script>
 </head>
 <body>
-    <h1>SSH Connection map</h1>
+    <div id="bar"><span id="question" onclick="showHelp()" display="hidden">?</span>SSH attack map</div>
+    <div id="help" class="hidden">
+        
+        <h1>FAQ<a href="#" onclick="hideHelp()" id="closehelp">Close</a></h1>
+        <h2>What am I looking at?</h2>
+        <p>This is a map showing where all attempted SSH logins to this
+            server in the past 14 days originated from. These logins were likely
+            attempted by hackers scanning the internet for insecure servers.
+            The size of a marker indicates how recently the attempt happened.
+            A darker color indicates many attempts came from that location.</p>
+        <h2>Can they get in?</h2>
+        <p>I have my server set up to not accept password authentication,
+            only SSH keys. This makes all of these automated attacks worthless,
+            save for any unkown vulnerabilities in SSH. It does however illustrate
+            the need for awereness of security. If you expose any device to the
+            internet, people <i>will</i> attempt to break in.</p>
+        <h2>What is SSH?</h2>
+        <p><a href="https://en.wikipedia.org/wiki/Secure_Shell">SSH</a> is a protocol used to connect to computers with unix-like operating systems remotely.</p>
+    </div>
     <div id="map"></div>
     <script type="text/javascript" src="js/javascript.js"></script>
 </body>

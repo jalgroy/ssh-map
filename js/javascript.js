@@ -18,7 +18,7 @@ for(var i = 0; i < json.length; i++) {
 }
 
 
-map.setView([15,0],3)
+map.setView([20,0],2)
 
 function getMarkerRadius(time, sizeDecreaseTime) {
     var diff = (new Date()).getTime()/1000 - time;
@@ -37,4 +37,12 @@ function getTimeSince(time){
     } else {
         return Math.round(diff / (24*60*60)) + " days ago";
     }
+}
+
+function showHelp() {
+    document.getElementById("help").className = "visible";
+    
+}
+function hideHelp() {
+    document.getElementById("help").className = "hidden";
 }
